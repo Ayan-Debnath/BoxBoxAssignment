@@ -11,7 +11,7 @@ data class RaceDetailsDto(
 data class Schedule(
     val circuitId: String,
     val isSprint: Boolean,
-    val podium: List<String>,
+    val podium: List<String>?,
     val raceEndTime: Long,
     val raceId: String,
     val raceName: String,

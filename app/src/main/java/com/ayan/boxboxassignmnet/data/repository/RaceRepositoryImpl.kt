@@ -1,6 +1,7 @@
 package com.ayan.boxboxassignmnet.data.repository
 
-import com.ayan.boxboxassignmnet.data.mapper.toDomain
+import com.ayan.boxboxassignmnet.data.mapper.toRaceScheduleModel
+import com.ayan.boxboxassignmnet.data.mapper.toRaceSessionModel
 import com.ayan.boxboxassignmnet.data.network.BoxBoxApiService
 import com.ayan.boxboxassignmnet.domain.model.RaceScheduleModel
 import com.ayan.boxboxassignmnet.domain.model.RaceSessionModel
@@ -15,12 +16,15 @@ class RaceRepositoryImpl @Inject constructor(
     override suspend fun fetchRaceSchedule(): Result<List<RaceScheduleModel>> {
         return safeApiCall(
             apiCall = { apiService.fetchRaceDetails() },
-            mapSuccess = {result-> result.toDomain()}
+            mapSuccess = {result-> result.toRaceScheduleModel()}
         )
     }
 
     override suspend fun fetchRaceSession(): Result<List<RaceSessionModel>> {
-        TODO("Not yet implemented")
+        return safeApiCall(
+            apiCall = { apiService.fetchRaceDetails() },
+            mapSuccess = {result-> result.toRaceSessionModel()}
+        )
     }
 
 }

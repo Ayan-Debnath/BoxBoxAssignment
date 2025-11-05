@@ -11,7 +11,7 @@ suspend fun<DTO,DOMAIN_MODEL> safeApiCall(
         val response = apiCall()
         if (response.isSuccessful){
             val body = response.body()!!
-            Result.success(mapSuccess(body))
+            Result.success(mapSuccess(body as DTO))
         } else {
             Result.failure(Exception("Unknown error occurs.."))
         }
