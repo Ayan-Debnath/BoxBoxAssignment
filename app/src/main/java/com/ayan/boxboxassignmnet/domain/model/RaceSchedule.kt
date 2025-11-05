@@ -1,6 +1,6 @@
 package com.ayan.boxboxassignmnet.domain.model
 
-class UpComingRaceModel(
+class RaceScheduleModel(
     val raceName: String,
     val round: Int,
     val circuitId: String,
