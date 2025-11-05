@@ -1,5 +1,6 @@
 package com.ayan.boxboxassignmnet.ui.theme
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -20,3 +21,5 @@ val MediumColor = Color(0xFF3020FD)
 val HomeScreenBg = Color(0xFF000000)
 val TopSliderBg = Color(0xFFFF5A08)
 val TopSliderTextColor = Color(0xFFFFF2AF)
+val FollowUsButtonColor = Color(0xFF86FF0E)
+val PointsColor = Brush.verticalGradient(listOf(Color(0xFFFFFFFF), Color(0xFFFF5A08)))
