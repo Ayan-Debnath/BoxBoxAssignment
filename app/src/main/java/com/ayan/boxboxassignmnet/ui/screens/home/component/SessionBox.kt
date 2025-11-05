@@ -1,4 +1,4 @@
-package com.ayan.boxboxassignmnet.ui.screens.component
+package com.ayan.boxboxassignmnet.ui.screens.home.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

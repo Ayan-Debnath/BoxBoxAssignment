@@ -19,6 +19,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -33,13 +34,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ayan.boxboxassignmnet.R
 import com.ayan.boxboxassignmnet.ui.common.HorizontalSpacer
 import com.ayan.boxboxassignmnet.ui.common.VerticalSpacer
-import com.ayan.boxboxassignmnet.ui.screens.HomeViewModel
-import com.ayan.boxboxassignmnet.ui.screens.component.DistanceBox
-import com.ayan.boxboxassignmnet.ui.screens.component.MediumBox
-import com.ayan.boxboxassignmnet.ui.screens.component.SessionBox
-import com.ayan.boxboxassignmnet.ui.screens.component.SliderOne
-import com.ayan.boxboxassignmnet.ui.screens.component.SliderTwo
-import com.ayan.boxboxassignmnet.ui.theme.HomeScreenBg
+import com.ayan.boxboxassignmnet.ui.screens.home.component.DistanceBox
+import com.ayan.boxboxassignmnet.ui.screens.home.component.MediumBox
+import com.ayan.boxboxassignmnet.ui.screens.home.component.SessionBox
+import com.ayan.boxboxassignmnet.ui.screens.home.component.SliderOne
+import com.ayan.boxboxassignmnet.ui.screens.home.component.SliderTwo
+import com.ayan.boxboxassignmnet.ui.theme.BlackBg
 import kotlinx.coroutines.delay
 
 const val NUMBER_OF_PAGES = 2
@@ -54,7 +54,7 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(HomeScreenBg)
+            .background(BlackBg)
             .verticalScroll(state = rememberScrollState())
     ) {
         TopSlider()
@@ -64,6 +64,7 @@ fun HomeScreen(
                 .padding(16.dp)
                 .align(Alignment.CenterHorizontally)
         )
+        CircularProgressIndicator()
     }
 
 }

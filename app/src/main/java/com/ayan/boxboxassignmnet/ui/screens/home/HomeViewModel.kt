@@ -1,6 +1,5 @@
-package com.ayan.boxboxassignmnet.ui.screens
+package com.ayan.boxboxassignmnet.ui.screens.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ayan.boxboxassignmnet.domain.usecase.FetchDriverUseCase

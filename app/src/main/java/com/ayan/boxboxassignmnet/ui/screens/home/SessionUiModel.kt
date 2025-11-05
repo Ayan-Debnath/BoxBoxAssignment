@@ -1,4 +1,4 @@
-package com.ayan.boxboxassignmnet.ui.screens
+package com.ayan.boxboxassignmnet.ui.screens.home
 
 data class SessionUiModel(
     var sessionName: String = "",

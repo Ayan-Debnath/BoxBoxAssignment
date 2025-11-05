@@ -1,4 +1,4 @@
-package com.ayan.boxboxassignmnet.ui.screens.component
+package com.ayan.boxboxassignmnet.ui.screens.home.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -42,15 +42,6 @@ fun SliderOne(modifier: Modifier = Modifier) {
             .height(420.dp)
             .background(TopSliderBg)
     ) {
-//        Image(
-//            modifier = Modifier
-//                .statusBarsPadding()
-//                .padding(start = 20.dp, top = 10.dp)
-//                .width(89.dp)
-//                .height(26.dp),
-//            painter = painterResource(R.drawable.get_ultra),
-//            contentDescription = null,
-//        )
         Text(
             modifier = Modifier
                 .padding(top = 22.dp, start = 20.dp),
