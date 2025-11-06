@@ -2,6 +2,7 @@ package com.ayan.boxboxassignmnet.ui.screens.details
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +27,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.ayan.boxboxassignmnet.R
 import com.ayan.boxboxassignmnet.ui.common.HorizontalSpacer
 import com.ayan.boxboxassignmnet.ui.common.VerticalSpacer
@@ -31,19 +37,41 @@ import com.ayan.boxboxassignmnet.ui.theme.BlackBg
 import com.ayan.boxboxassignmnet.ui.theme.CircuitTextColor
 
 @Composable
-fun DetailsScreen(modifier: Modifier = Modifier) {
+fun DetailsScreen(
+    navController: NavController,
+    viewModel: DetailsViewModel = hiltViewModel()
+) {
+
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BlackBg)
+            .background(BlackBg),
     ) {
-        Header()
-        StaticDescription()
+        if (uiState.isLoading){
+            Loading()
+        } else {
+            Header(uiState = uiState)
+            StaticDescription()
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+fun Loading(modifier: Modifier = Modifier) {
+    Column(
+        Modifier.fillMaxSize().background(BlackBg),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        LoadingIndicator(color = Color.White)
     }
 }
 
 @Composable
-fun Header(modifier: Modifier = Modifier) {
+fun Header(uiState: RaceDetailsUiState) {
 
     Box(
         modifier = Modifier
@@ -71,21 +99,37 @@ fun Header(modifier: Modifier = Modifier) {
             painter = painterResource(R.drawable.circuit),
             contentDescription = null,
             modifier = Modifier
-                .padding(end = 11.dp, top = 45.dp)
+                .padding(end = 11.dp, top = 80.dp)
                 .width(156.dp)
                 .height(106.dp)
                 .align(Alignment.CenterEnd)
         )
-        RaceInfo(modifier = Modifier.align(Alignment.CenterStart).padding(top = 150.dp))
+        RaceInfo(
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .padding(top = 80.dp),
+            round = uiState.raceDetailsUiModel?.roundName ?: "",
+            raceName = uiState.raceDetailsUiModel?.raceName ?: "",
+            circuitId = uiState.raceDetailsUiModel?.circuitId ?: "",
+            date = uiState.raceDetailsUiModel?.date ?: "",
+            startsIn = uiState.raceDetailsUiModel?.startsIn ?: ""
+        )
     }
 }
 
 @Composable
-fun RaceInfo(modifier: Modifier = Modifier) {
+fun RaceInfo(
+    modifier: Modifier = Modifier,
+    round: String,
+    raceName: String,
+    circuitId: String,
+    date: String,
+    startsIn: String
+) {
     Column(modifier.padding(bottom = 20.dp, start = 20.dp)) {
         Text(
             modifier = Modifier,
-            text = "Round 12",
+            text = round,
             fontSize = 14.sp,
             fontFamily = FontFamily(Font(R.font.montserrat_medium)),
             fontWeight = FontWeight.Medium,
@@ -94,7 +138,7 @@ fun RaceInfo(modifier: Modifier = Modifier) {
         )
         Text(
             modifier = Modifier,
-            text = "São Paulo GP",
+            text = raceName,
             fontSize = 22.sp,
             fontFamily = FontFamily(Font(R.font.montserrat_black)),
             fontWeight = FontWeight.Bold,
@@ -103,7 +147,7 @@ fun RaceInfo(modifier: Modifier = Modifier) {
         )
         Text(
             modifier = Modifier,
-            text = "São Paulo",
+            text = circuitId,
             fontSize = 14.sp,
             fontFamily = FontFamily(Font(R.font.montserrat_medium)),
             fontWeight = FontWeight.SemiBold,
@@ -112,7 +156,7 @@ fun RaceInfo(modifier: Modifier = Modifier) {
         )
         Text(
             modifier = Modifier,
-            text = "23 - 30 April",
+            text = date,
             fontSize = 14.sp,
             fontFamily = FontFamily(Font(R.font.montserrat_medium)),
             fontWeight = FontWeight.SemiBold,
@@ -120,12 +164,13 @@ fun RaceInfo(modifier: Modifier = Modifier) {
             textAlign = TextAlign.Center
         )
         VerticalSpacer(30)
-        RaceCountdown()
+        RaceCountdown(startsIn)
     }
 }
 
 @Composable
-fun RaceCountdown(modifier: Modifier = Modifier) {
+fun RaceCountdown(startsIn: String) {
+    val starts = startsIn.split(",")
     Column {
         Text(
             modifier = Modifier,
@@ -137,12 +182,14 @@ fun RaceCountdown(modifier: Modifier = Modifier) {
             textAlign = TextAlign.Center,
             lineHeight = 12.sp
         )
-        Row {
-            CountDownItem(value = "07", label = "Days")
+        Row(
+            horizontalArrangement = Arrangement.Start
+        ) {
+            CountDownItem(value = starts[0], label = "Days")
             HorizontalSpacer(24)
-            CountDownItem(value = "16", label = "Hours")
+            CountDownItem(value = starts[1], label = "Hours")
             HorizontalSpacer(24)
-            CountDownItem(value = "42", label = "Minutes")
+            CountDownItem(value = starts[2], label = "Minutes")
         }
     }
 }

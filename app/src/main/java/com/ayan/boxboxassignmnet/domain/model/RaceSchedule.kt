@@ -7,3 +7,8 @@ class RaceScheduleModel(
     val startTime: Long,
     val endTime: Long
 )
+
+fun RaceScheduleModel.isUpComing(): Boolean{
+    val now = System.currentTimeMillis() / 1000
+    return now < startTime
+}

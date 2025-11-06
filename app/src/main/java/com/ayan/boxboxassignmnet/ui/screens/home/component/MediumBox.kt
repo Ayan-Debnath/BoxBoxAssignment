@@ -1,8 +1,10 @@
 package com.ayan.boxboxassignmnet.ui.screens.home.component
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,24 +19,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import com.ayan.boxboxassignmnet.R
 import com.ayan.boxboxassignmnet.ui.theme.BorderColor
 import com.ayan.boxboxassignmnet.ui.theme.MediumColor
 
 @Composable
-fun MediumBox(modifier: Modifier = Modifier) {
+fun MediumArticleBox(
+    openMedium : ()->Unit
+) {
     Box(
         modifier = Modifier
             .width(163.dp)
             .height(60.dp)
             .clip(RoundedCornerShape(16.dp))
             .border(1.dp, BorderColor, RoundedCornerShape(16.dp))
-            .background(MediumColor),
+            .background(MediumColor)
+            .clickable { openMedium() },
     ) {
         Row(
             modifier = Modifier
@@ -49,14 +56,14 @@ fun MediumBox(modifier: Modifier = Modifier) {
             )
             Column {
                 Text(
-                    text = "Formula1",
+                    text = "  Formula1",
                     color = Color.White,
                     fontSize = 12.sp,
                     lineHeight = 16.sp,
                     fontFamily = FontFamily(Font(R.font.space_grotesk_bold)),
                 )
                 Text(
-                    text = "Education",
+                    text = "  Education",
                     color = Color.White,
                     fontSize = 16.sp,
                     lineHeight = 18.sp,

@@ -35,7 +35,12 @@ import com.ayan.boxboxassignmnet.ui.theme.TopSliderBg
 import com.ayan.boxboxassignmnet.ui.theme.TopSliderTextColor
 
 @Composable
-fun SliderOne(modifier: Modifier = Modifier) {
+fun SliderOne(
+    teamName: String,
+    position: String,
+    wins: String,
+    points: String
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -44,8 +49,8 @@ fun SliderOne(modifier: Modifier = Modifier) {
     ) {
         Text(
             modifier = Modifier
-                .padding(top = 22.dp, start = 20.dp),
-            text = "Lando",
+                .padding(top = 45.dp, start = 20.dp),
+            text = teamName,
             fontSize = 154.sp,
             fontFamily = FontFamily(Font(R.font.space_grotesk_bold)),
             color = TopSliderTextColor.copy(alpha = 0.5f),
@@ -76,13 +81,21 @@ fun SliderOne(modifier: Modifier = Modifier) {
                 )
         )
         ScoreCard(
-            modifier = Modifier.align(Alignment.BottomStart)
+            modifier = Modifier.align(Alignment.BottomStart),
+            position = position,
+            wins = wins,
+            points = points
         )
     }
 }
 
 @Composable
-fun ScoreCard(modifier: Modifier = Modifier) {
+fun ScoreCard(
+    modifier: Modifier = Modifier,
+    position: String,
+    wins: String,
+    points: String
+) {
     Column(modifier = modifier.padding(start = 33.dp, bottom = 33.dp)) {
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -101,7 +114,7 @@ fun ScoreCard(modifier: Modifier = Modifier) {
                         fontSize = 18.sp
                     )
                 ) {
-                    append("01")
+                    append(" $position")
                 }
                 withStyle(
                     style = SpanStyle(
@@ -111,7 +124,7 @@ fun ScoreCard(modifier: Modifier = Modifier) {
                         fontSize = 10.sp
                     )
                 ) {
-                    append("Pos")
+                    append(" Pos")
                 }
             }
             Text(text = annotatedString)
@@ -130,7 +143,11 @@ fun ScoreCard(modifier: Modifier = Modifier) {
                         fontSize = 18.sp
                     )
                 ) {
-                    append("09")
+                    if (wins.toInt() < 10){
+                        append(" 0$wins")
+                    } else {
+                        append(" $wins")
+                    }
                 }
                 withStyle(
                     style = SpanStyle(
@@ -140,7 +157,7 @@ fun ScoreCard(modifier: Modifier = Modifier) {
                         fontSize = 10.sp
                     )
                 ) {
-                    append("Wins")
+                    append(" Wins")
                 }
             }
             Text(text = annotatedWinString)
@@ -149,10 +166,11 @@ fun ScoreCard(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.Bottom
         ) {
             Text(
-                text = "429",
+                text = points,
                 fontSize = 72.sp,
-                fontFamily = FontFamily(Font(R.font.space_grotesk_bold)),
+                fontFamily = FontFamily(Font(R.font.space_grotesk_light)),
                 style = TextStyle(brush = PointsColor),
+                fontWeight = FontWeight.W300,
                 maxLines = 1,
                 lineHeight = 70.sp
             )

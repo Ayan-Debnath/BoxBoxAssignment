@@ -31,7 +31,13 @@ import com.ayan.boxboxassignmnet.ui.theme.SessionColorBg
 import com.ayan.boxboxassignmnet.ui.theme.SessionTimeColor
 
 @Composable
-fun SessionBox(modifier: Modifier = Modifier) {
+fun SessionBox(
+    modifier: Modifier = Modifier,
+    sessionName: String,
+    date: String,
+    time: String
+) {
+    val startTime = time.split("-")
     Box(
         modifier = modifier
             .width(163.dp)
@@ -52,10 +58,12 @@ fun SessionBox(modifier: Modifier = Modifier) {
                 contentDescription = null
             )
             Text(
-                text = "FP1",
+                text = sessionName,
                 color = Color.White,
                 fontSize = 12.sp,
                 fontFamily = FontFamily(Font(R.font.space_grotesk_bold)),
+                fontWeight = FontWeight.W700,
+                lineHeight = 14.sp
             )
             Row(
                 verticalAlignment = Alignment.CenterVertically
@@ -66,11 +74,12 @@ fun SessionBox(modifier: Modifier = Modifier) {
                 )
                 HorizontalSpacer(4)
                 Text(
-                    text = "04 Friday",
+                    text = date,
                     color = Color.White,
                     fontFamily = FontFamily(Font(R.font.space_grotesk_bold)),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
+                    fontWeight = FontWeight.W700,
+                    fontSize = 14.sp,
+                    lineHeight = 18.sp
                 )
             }
             val annotatedString = buildAnnotatedString {
@@ -79,10 +88,10 @@ fun SessionBox(modifier: Modifier = Modifier) {
                         color = SessionTimeColor,
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily(Font(R.font.space_grotesk_bold)),
-                        fontSize = 36.sp
+                        fontSize = 36.sp,
                     )
                 ) {
-                    append("8:00")
+                    append(startTime[0])
                 }
                 withStyle(
                     style = SpanStyle(
@@ -92,7 +101,7 @@ fun SessionBox(modifier: Modifier = Modifier) {
                         fontSize = 20.sp
                     )
                 ) {
-                    append("AM")
+                    append(startTime[1])
                 }
             }
             Text(text = annotatedString)

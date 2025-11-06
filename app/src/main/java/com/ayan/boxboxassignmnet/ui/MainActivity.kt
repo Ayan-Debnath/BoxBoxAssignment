@@ -4,8 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.ayan.boxboxassignmnet.ui.screens.details.DetailsScreen
-import com.ayan.boxboxassignmnet.ui.screens.home.HomeScreen
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
+import com.ayan.boxboxassignmnet.ui.common.BottomNavigationBar
+import com.ayan.boxboxassignmnet.ui.navigation.AppNavGraph
 import com.ayan.boxboxassignmnet.ui.theme.BoxBoxAssignmnetTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,8 +19,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BoxBoxAssignmnetTheme {
-                HomeScreen()
-                //DetailsScreen()
+                Scaffold(
+                    bottomBar = {
+                        BottomNavigationBar()
+                    }
+                ) { paddingValues ->
+                    AppNavGraph()
+                }
             }
         }
     }
